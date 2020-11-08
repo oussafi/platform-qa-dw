@@ -1,6 +1,7 @@
 package pages;
 
-import net.serenitybdd.core.annotations.findby.FindBy;
+import java.io.File;
+
 import org.openqa.selenium.WebDriver;
 
 public class GenericPage extends BasePageImpl {
@@ -13,4 +14,6 @@ public class GenericPage extends BasePageImpl {
 		super(driver);
 	}
 
+	public static final String UPLOAD_DIRECTORY_PATH = System.getProperty("user.dir") + File.separator + "src"
+			+ File.separator + "test" + File.separator + "resources" + File.separator + "DataFiles" + File.separator;
 }
