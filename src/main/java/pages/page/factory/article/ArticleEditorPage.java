@@ -3,6 +3,7 @@ package pages.page.factory.article;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -40,11 +41,51 @@ public class ArticleEditorPage extends GenericPage {
 	@FindBy(xpath = "//a[@title='OK']")
 	private BaseElementFacade validateUploadButton;
 
+	@FindBy(xpath = "//div[contains(@class,'progress-striped')]")
+	private BaseElementFacade uploadProgressBar;
+
+	@FindBy(xpath = "//a[contains(@class,'newsTitleLink')]")
+	private BaseElementFacade titleLinkInActivityLoader;
+
+	@FindBy(xpath = "//div[@id='newsSummary']//span")
+	private BaseElementFacade SummaryInActivityLoader;
+
+	@FindBy(xpath = "//div[@id='newsBody']//span//p")
+	private BaseElementFacade bodyInActivityLoader;
+
+	@FindBy(xpath = "//img[@data-plugin-name='selectImage']")
+	private BaseElementFacade imageInActivityLoader;
+
+	@FindBy(id = "newsDraftButton")
+	private TextBoxElementFacade newsDraftButton;
+
+	@FindBy(className = "draftModifiedTime")
+	private TextBoxElementFacade draftModifiedTime;
+
+	@FindBy(xpath = "//i[@class='uiIconEdit']")
+	private TextBoxElementFacade resumeIcon;
+
+	@FindBy(xpath = "//i[@class='uiIconDelete']")
+	private TextBoxElementFacade deleteIcon;
+
+	private BaseElementFacade getDraftTitle(String draftTitle) {
+		return findByXpath(String.format("//p[@class='draftTitle']//b[contains(text(),'%s')]", draftTitle));
+	}
+
 	Map<String, TextBoxElementFacade> MAPPING_FIELD_NAME_TO_TEXTELEMENT_XPATH = new HashMap<String, TextBoxElementFacade>() {
 		{
 			put("Titre", newsTileTextBox);
 			put("Résumé", newsSummaryTextBox);
 			put("Contenu", newsContentTextBox);
+
+		}
+	};
+
+	Map<String, BaseElementFacade> MAPPING_FIELD_Name_TO_BASEELEMENTFACADE_XPATH = new HashMap<String, BaseElementFacade>() {
+		{
+			put("Titre", titleLinkInActivityLoader);
+			put("Résumé", SummaryInActivityLoader);
+			put("Contenu", bodyInActivityLoader);
 
 		}
 	};
@@ -59,8 +100,18 @@ public class ArticleEditorPage extends GenericPage {
 		}
 	}
 
+	public boolean isFieldVisible(String fieldType) {
+		return MAPPING_FIELD_NAME_TO_TEXTELEMENT_XPATH.get(fieldType).isVisibleAfterWaiting();
+
+	}
+
+	public boolean isCkEditorVivible() {
+		return ckEditorFrame.isVisibleAfterWaiting();
+	}
+
 	public void clickPublishButton() {
 		publishButton.clickOnElement();
+		publishButton.waitUntilNotVisible();
 	}
 
 	public void clickUploadImageIcone() {
@@ -76,7 +127,39 @@ public class ArticleEditorPage extends GenericPage {
 	}
 
 	public void clickValidateUpload() {
-		if (validateUploadButtonDisabled.isNotVisibleAfterWaiting())
+		if (uploadProgressBar.isNotVisibleAfterWaiting())
 			validateUploadButton.clickOnElement();
+	}
+
+	public String getFieldContent(String contentType) {
+		try {
+			return MAPPING_FIELD_Name_TO_BASEELEMENTFACADE_XPATH.get(contentType).getText();
+		} catch (NullPointerException e) {
+			return "No value to return";
+		}
+	}
+
+	public boolean isImageDislpayedInActivityLoader() {
+		return imageInActivityLoader.isVisibleAfterWaiting();
+	}
+
+	public void clickDraftButton() {
+		newsDraftButton.clickOnElement();
+	}
+
+	public boolean isgetDraftTitleVisible(String title) {
+		return getDraftTitle(title).isVisibleAfterWaiting();
+	}
+
+	public boolean isResumeIconVisible() {
+		return resumeIcon.isVisibleAfterWaiting();
+	}
+
+	public boolean isDeleteIconVisible() {
+		return deleteIcon.isVisibleAfterWaiting();
+	}
+
+	public void clickResume() {
+		resumeIcon.clickOnElement();
 	}
 }

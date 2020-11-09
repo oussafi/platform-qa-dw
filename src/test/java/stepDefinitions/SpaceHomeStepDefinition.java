@@ -32,4 +32,17 @@ public class SpaceHomeStepDefinition {
 		assertThat(spaceHomeSteps.checkArticleDetails()).as("The article details should be displayed but it is not")
 				.isEmpty();
 	}
+
+	@Then("je clique sur le titre de l'article dans l'activity stream")
+	public void clickArticleTitle() {
+		spaceHomeSteps.clickArticleTitle();
+	}
+	@When("l'article est affiché avec l'image ajoutée dans l'activity stream de l'espace")
+	public void checkArticleWithImage() {
+		assertThat(spaceHomeSteps.checkArticleWithImage()).as("l'article n'est pas ajouté").isEmpty();
+	}
+	@Then("je clique sur 'lire la suite' de l'article dans l'activity stream")
+	public void clickReadMore() {
+		spaceHomeSteps.clickReadMore();
+	}
 }

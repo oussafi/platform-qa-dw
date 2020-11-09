@@ -23,6 +23,14 @@ public class SpaceHomePage extends GenericPage {
 	@FindBy(xpath = "//div[@class='newsTitle']//a")
 	private BaseElementFacade articleTitle;
 
+	private BaseElementFacade getArticleTitle(String title) {
+		return findByXpath(String.format("//div[@class='newsTitle']//a[contains(text(),'%s')]", title));
+	}
+
+	private BaseElementFacade getReadMoreArticle(String title) {
+		return findByXpath(String.format("//a[contains(text(),'%s')]//following::div[@class='readMore']//a", title));
+	}
+
 	@FindBy(xpath = "//div[@class='newsBody']")
 	private BaseElementFacade articleBody;
 	Map<String, BaseElementFacade> MAPPING_FIELD_Name_TO_BASEELEMENTFACADE_XPATH = new HashMap<String, BaseElementFacade>() {
@@ -51,5 +59,13 @@ public class SpaceHomePage extends GenericPage {
 		} catch (NullPointerException e) {
 			return "No value to return";
 		}
+	}
+
+	public void clickArticleTitle(String articleTitle) {
+		getArticleTitle(articleTitle).clickOnElement();
+	}
+
+	public void clickReadMore(String articleTitle) {
+		getReadMoreArticle(articleTitle).clickOnElement();
 	}
 }
