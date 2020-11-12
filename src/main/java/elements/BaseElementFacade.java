@@ -29,6 +29,10 @@ public interface BaseElementFacade extends WebElementFacade {
 	 */
 	public boolean isNotVisibleAfterWaiting();
 
+	public boolean isDisabledAfterWaiting();
+
+	public boolean isEnabledAfterWaiting();
+
 	/**
 	 * Method to find an element inside an element using the xpath and to wrapp it
 	 * in a BaseElementFacade instance

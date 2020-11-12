@@ -6,15 +6,21 @@ import steps.HomeSteps;
 import steps.ManageSpaceSteps;
 
 public class ManageSpaceStepDefinitions {
-    @Steps
-    private ManageSpaceSteps manageSpaceSteps;
+	@Steps
+	private ManageSpaceSteps manageSpaceSteps;
 
-    @Steps
-    private HomeSteps homeSteps;
+	@Steps
+	private HomeSteps homeSteps;
 
-    @Given("l'espace '(.*)' est crée")
-    public void addNewSpace(String spaceName) {
-        homeSteps.goToManageSpacesPage();
-        manageSpaceSteps.addSimpleSpace(spaceName);
-    }
+	@Given("^l'espace '(.*)' est crée$")
+	public void addNewSpace(String spaceName) {
+		homeSteps.goToManageSpacesPage();
+		manageSpaceSteps.addSimpleSpace(spaceName);
+	}
+
+	@Given("^je navigue vers l'espace '(.*)'$")
+	public void goToSpace(String spaceName) {
+		homeSteps.goToManageSpacesPage();
+		manageSpaceSteps.goToSpeceficSpace(spaceName);
+	}
 }

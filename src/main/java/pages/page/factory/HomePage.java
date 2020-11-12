@@ -16,9 +16,20 @@ public class HomePage extends GenericPage {
     @FindBy(xpath = "//a[@href='/portal/dw/spaces']")
     private BaseElementFacade openSpacesPageLink;
 
+    @FindBy(id = "appcenterLauncherButton")
+    private BaseElementFacade appCenterButton;
+
+    @FindBy(id = "5")
+    private BaseElementFacade newsMenuButton;
+
     public void goToSpacesPage() {
         hamburgerNavigationMenuLink.clickOnElement();
         openSpacesPageLink.clickOnElement();
+    }
+
+    public void goToNewsApp(){
+        appCenterButton.clickOnElement();
+        newsMenuButton.clickOnElement();
     }
 
     public boolean isHomePageDisplayed(){

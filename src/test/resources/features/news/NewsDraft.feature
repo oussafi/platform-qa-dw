@@ -17,7 +17,7 @@ Fonctionnalité: Création des draft
       | Contenu | ArticleContenuCAP20 |
     Et je clique sur 'Brouillons'
     Alors Les détails du brouillons sont affichés
-  @execute
+
   Scénario: CAP21 - [US-NewsDraft-02] : Resume draft
     Etant donné Je suis connecté avec l'utilisateur avec les identifiants
       | login    | john   |

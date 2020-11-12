@@ -45,6 +45,7 @@ public class TextBoxElementFacadeImpl extends BaseElementFacadeImpl implements T
 	}
 
 	public String getTextBoxValue() {
+		waitForPageLoaded();
 		LOGGER.debug(String.format("Getting text of the element [%s]", this));
 		String textValue = null;
 		try {

@@ -3,7 +3,6 @@ package pages.page.factory.article;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -68,8 +67,30 @@ public class ArticleEditorPage extends GenericPage {
 	@FindBy(xpath = "//i[@class='uiIconDelete']")
 	private TextBoxElementFacade deleteIcon;
 
+	@FindBy(xpath = "//button[@id='newsEdit']")
+	private TextBoxElementFacade editButton;
+
+	@FindBy(id = "newsPinButton")
+	private TextBoxElementFacade pinArticleButton;
+
+	@FindBy(id = "newsShareButton")
+	private BaseElementFacade newsShareButton;
+
+	@FindBy(xpath = "//div[contains(@class,'selectize-input')]//input")
+	private TextBoxElementFacade selectEspaceToShare;
+
+	@FindBy(className = "newsShareDescription")
+	private TextBoxElementFacade selectDescriptionToShare;
+
+	@FindBy(xpath = "//div[@class='shareButtons']//button[1]")
+	private BaseElementFacade shareButtonInDrawer;
+
 	private BaseElementFacade getDraftTitle(String draftTitle) {
 		return findByXpath(String.format("//p[@class='draftTitle']//b[contains(text(),'%s')]", draftTitle));
+	}
+
+	private BaseElementFacade getSelectSpaceInDropDown(String spaceName) {
+		return findByXpath(String.format("//div[@class='optionItem' and @data-value='%s']", spaceName));
 	}
 
 	Map<String, TextBoxElementFacade> MAPPING_FIELD_NAME_TO_TEXTELEMENT_XPATH = new HashMap<String, TextBoxElementFacade>() {
@@ -92,6 +113,7 @@ public class ArticleEditorPage extends GenericPage {
 
 	public void changeFieldValue(String fieldType, String fieldValue) {
 		if (fieldType.equals("Contenu")) {
+			ckEditorFrame.clickOnElement();
 			Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrame);
 			newsContentTextBox.setTextValue(fieldValue);
 			Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
@@ -134,7 +156,7 @@ public class ArticleEditorPage extends GenericPage {
 	public String getFieldContent(String contentType) {
 		try {
 			return MAPPING_FIELD_Name_TO_BASEELEMENTFACADE_XPATH.get(contentType).getText();
-		} catch (NullPointerException e) {
+		} catch (Exception e) {
 			return "No value to return";
 		}
 	}
@@ -161,5 +183,38 @@ public class ArticleEditorPage extends GenericPage {
 
 	public void clickResume() {
 		resumeIcon.clickOnElement();
+	}
+
+	public boolean isEditButtonDisabled() {
+		return editButton.isDisabledAfterWaiting();
+	}
+
+	public void clickUpdateButton() {
+		editButton.clickOnElement();
+	}
+
+	public void clickPin() {
+		pinArticleButton.clickOnElement();
+	}
+
+	public void clickShare() {
+		newsShareButton.clickOnElement();
+	}
+
+	public void setEspaceNameToShare(String spaceName) {
+		selectEspaceToShare.setTextValue(spaceName);
+		getSelectSpaceInDropDown(spaceName).clickOnElement();
+	}
+
+	public void setDescritionToShare(String description) {
+		selectDescriptionToShare.setTextValue(description);
+	}
+
+	public void clickShareButton(){
+		shareButtonInDrawer.clickOnElement();
+	}
+
+	public boolean isShareButtonEnabled() {
+		return shareButtonInDrawer.isEnabledAfterWaiting();
 	}
 }

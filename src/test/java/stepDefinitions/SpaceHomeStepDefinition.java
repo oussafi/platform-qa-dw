@@ -37,12 +37,30 @@ public class SpaceHomeStepDefinition {
 	public void clickArticleTitle() {
 		spaceHomeSteps.clickArticleTitle();
 	}
+
 	@When("l'article est affiché avec l'image ajoutée dans l'activity stream de l'espace")
 	public void checkArticleWithImage() {
 		assertThat(spaceHomeSteps.checkArticleWithImage()).as("l'article n'est pas ajouté").isEmpty();
 	}
+
 	@Then("je clique sur 'lire la suite' de l'article dans l'activity stream")
 	public void clickReadMore() {
 		spaceHomeSteps.clickReadMore();
+	}
+
+	@When("je saisie une activité '(.*)'")
+	public void addActivity(String activity) {
+		spaceHomeSteps.addActicity(activity);
+	}
+
+	@When("^je publie l'activité$")
+	public void publishActivity() {
+		spaceHomeSteps.publishActicity();
+	}
+
+	@Then("l'activité '(.*)' est affiché dans l'activity stream")
+	public void checkActivity(String activity) {
+		assertThat(spaceHomeSteps.isActivityVisible(activity))
+				.as("L'activité n'est pas affichée dans l'activity stream").isTrue();
 	}
 }

@@ -6,6 +6,8 @@ import java.util.Map;
 import org.openqa.selenium.WebDriver;
 
 import elements.BaseElementFacade;
+import elements.TextBoxElementFacade;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import pages.GenericPage;
 
@@ -23,12 +25,25 @@ public class SpaceHomePage extends GenericPage {
 	@FindBy(xpath = "//div[@class='newsTitle']//a")
 	private BaseElementFacade articleTitle;
 
+	@FindBy(xpath = "//iframe[contains(@class,'cke_wysiwyg_frame')]")
+	private BaseElementFacade ckEditorFrame;
+
+	@FindBy(xpath = "//body[contains(@class,'cke_editable_themed')]")
+	private TextBoxElementFacade newsContentTextBox;
+
+	@FindBy(xpath = "//button[contains(@class,'ignore-vuetify-classes')]")
+	private BaseElementFacade publishActivityButton;
+
 	private BaseElementFacade getArticleTitle(String title) {
 		return findByXpath(String.format("//div[@class='newsTitle']//a[contains(text(),'%s')]", title));
 	}
 
 	private BaseElementFacade getReadMoreArticle(String title) {
 		return findByXpath(String.format("//a[contains(text(),'%s')]//following::div[@class='readMore']//a", title));
+	}
+
+	private BaseElementFacade getActivityText(String activity) {
+		return findByXpath(String.format("//div[@id='boxContainer']//p[contains(text(),'%s')]", activity));
 	}
 
 	@FindBy(xpath = "//div[@class='newsBody']")
@@ -67,5 +82,20 @@ public class SpaceHomePage extends GenericPage {
 
 	public void clickReadMore(String articleTitle) {
 		getReadMoreArticle(articleTitle).clickOnElement();
+	}
+
+	public void addActivity(String activity) {
+		ckEditorFrame.clickOnElement();
+		Serenity.getWebdriverManager().getCurrentDriver().switchTo().frame(ckEditorFrame);
+		newsContentTextBox.setTextValue(activity);
+		Serenity.getWebdriverManager().getCurrentDriver().switchTo().defaultContent();
+	}
+
+	public void publishActivity() {
+		publishActivityButton.clickOnElement();
+	}
+
+	public boolean isActivityVisible(String activity) {
+		return getActivityText(activity).isVisibleAfterWaiting();
 	}
 }

@@ -1,17 +1,5 @@
 package elements;
 
-
-import com.paulhammant.ngwebdriver.NgWebDriver;
-import net.jodah.failsafe.Failsafe;
-import net.serenitybdd.core.annotations.findby.By;
-import net.serenitybdd.core.pages.DefaultTimeouts;
-import net.serenitybdd.core.pages.WebElementFacade;
-import net.serenitybdd.core.pages.WebElementFacadeImpl;
-import net.serenitybdd.core.selectors.Selectors;
-import net.thucydides.core.ThucydidesSystemProperty;
-import net.thucydides.core.guice.Injectors;
-import net.thucydides.core.util.EnvironmentVariables;
-import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
@@ -22,10 +10,19 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.pagefactory.ElementLocator;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import net.jodah.failsafe.Failsafe;
+import net.serenitybdd.core.annotations.findby.By;
+import net.serenitybdd.core.pages.DefaultTimeouts;
+import net.serenitybdd.core.pages.WebElementFacade;
+import net.serenitybdd.core.pages.WebElementFacadeImpl;
+import net.serenitybdd.core.selectors.Selectors;
+import net.thucydides.core.ThucydidesSystemProperty;
+import net.thucydides.core.guice.Injectors;
+import net.thucydides.core.util.EnvironmentVariables;
+import net.thucydides.core.webdriver.javascript.JavascriptExecutorFacade;
 import utils.ExceptionLauncher;
 import utils.RetryOnFailure;
-
-import java.util.Optional;
 
 public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseElementFacade {
 
@@ -171,6 +168,31 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 			return false;
 		}
 		LOGGER.debug(String.format("The element [%s] is not visible ", this));
+		return true;
+	}
+
+	public boolean isDisabledAfterWaiting() {
+
+		LOGGER.debug(String.format("Checking if the element [%s] is disabled ", this));
+		try {
+			waitUntilDisabled();
+		} catch (Exception e) {
+			return false;
+		}
+		LOGGER.debug(String.format("The element [%s] isdisabled ", this));
+		return true;
+
+	}
+
+
+	public boolean isEnabledAfterWaiting() {
+		LOGGER.debug(String.format("Checking if the element [%s] is enabled ", this));
+		try {
+			waitUntilEnabled();
+		} catch (Exception e) {
+			return false;
+		}
+		LOGGER.debug(String.format("The element [%s] is enabled ", this));
 		return true;
 	}
 

@@ -60,4 +60,16 @@ public class SpaceHomeSteps {
 		String articleTitle=expectedArticle.get("Titre");
 		spaceHomePage.clickReadMore(articleTitle);
 	}
+
+	public void addActicity(String activity){
+		spaceHomePage.addActivity(activity);
+	}
+
+	public void publishActicity(){
+		spaceHomePage.publishActivity();
+	}
+
+	public boolean isActivityVisible(String activity){
+		return spaceHomePage.isActivityVisible(activity);
+	}
 }

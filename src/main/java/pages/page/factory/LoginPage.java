@@ -1,5 +1,6 @@
 package pages.page.factory;
 
+import elements.BaseElementFacade;
 import elements.ButtonElementFacade;
 import elements.TextBoxElementFacade;
 import net.serenitybdd.core.annotations.findby.By;
@@ -28,7 +29,12 @@ public class LoginPage extends GenericPage {
     @FindBy(tagName = "button")
     private ButtonElementFacade loginButton;
 
+    @FindBy(xpath = "//button[@value='skipform']")
+    private BaseElementFacade skipButton;
+
     public void login(String login, String password) {
+        if(skipButton.isVisibleAfterWaiting())
+            skipButton.clickOnElement();
         loginTextBox.setTextValue(login);
         passwordTextbox.setTextValue(password);
         loginButton.clickOnElement();

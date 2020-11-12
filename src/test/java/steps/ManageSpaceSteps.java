@@ -12,4 +12,9 @@ public class ManageSpaceSteps {
         manageSpacesPage.clickSecondProcessButton();
         manageSpacesPage.clickAddSpaceButton();
     }
+
+    public void goToSpeceficSpace(String space){
+        manageSpacesPage.insertSpaceNameInSearchField(space);
+        manageSpacesPage.goToSpecificSpace(space);
+    }
 }
