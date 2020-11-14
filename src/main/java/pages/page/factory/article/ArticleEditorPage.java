@@ -85,12 +85,24 @@ public class ArticleEditorPage extends GenericPage {
 	@FindBy(xpath = "//div[@class='shareButtons']//button[1]")
 	private BaseElementFacade shareButtonInDrawer;
 
+	@FindBy(xpath = "//i[@class='uiIconAttachment']")
+	private BaseElementFacade attachmentIcon;
+
 	private BaseElementFacade getDraftTitle(String draftTitle) {
 		return findByXpath(String.format("//p[@class='draftTitle']//b[contains(text(),'%s')]", draftTitle));
 	}
 
+	private BaseElementFacade getAttachedFile(String fileName) {
+		return findByXpath(String.format("//div[@class='fileDetails']//div[contains(text(),'%s')]", fileName));
+	}
+
 	private BaseElementFacade getSelectSpaceInDropDown(String spaceName) {
 		return findByXpath(String.format("//div[@class='optionItem' and @data-value='%s']", spaceName));
+	}
+
+	private BaseElementFacade getContentWithText(String textContent) {
+		return findByXpath(
+				String.format("//body[contains(@class,'newsContent')]//p[contains(text(),'%s')]", textContent));
 	}
 
 	Map<String, TextBoxElementFacade> MAPPING_FIELD_NAME_TO_TEXTELEMENT_XPATH = new HashMap<String, TextBoxElementFacade>() {
@@ -210,11 +222,20 @@ public class ArticleEditorPage extends GenericPage {
 		selectDescriptionToShare.setTextValue(description);
 	}
 
-	public void clickShareButton(){
+	public void clickShareButton() {
 		shareButtonInDrawer.clickOnElement();
 	}
 
 	public boolean isShareButtonEnabled() {
 		return shareButtonInDrawer.isEnabledAfterWaiting();
+	}
+
+	public boolean isContentWithTextVisible(String textContent) {
+		return getContentWithText(textContent).isNotVisibleAfterWaiting();
+	}
+
+	public boolean isAttachedFileDisplayed(String file) {
+		attachmentIcon.clickOnElement();
+		return getAttachedFile(file).isVisibleAfterWaiting();
 	}
 }

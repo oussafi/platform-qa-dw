@@ -6,6 +6,7 @@ import java.util.Map;
 
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import net.serenitybdd.core.Serenity;
 import net.thucydides.core.annotations.Steps;
 import steps.ArticleSteps;
 
@@ -67,8 +68,8 @@ public class ArticleStepDefinitions {
 
 	@When("le button est désactivé par défaut")
 	public void checkEditButton() {
-		assertThat(articleSteps.isEditButtonDisabled())
-				.as("Le button modifier n'est pas désactivée par default").isTrue();
+		assertThat(articleSteps.isEditButtonDisabled()).as("Le button modifier n'est pas désactivée par default")
+				.isTrue();
 	}
 
 	@When("je modifie l'article contenant une image <(.*)>")
@@ -90,17 +91,32 @@ public class ArticleStepDefinitions {
 	public void clickShare() {
 		articleSteps.clickShare();
 	}
+
 	@When("je choisis l'espace '(.*)' pour partager l'article")
 	public void clickShare(String espaceName) {
 		articleSteps.setEspaceNameToShare(espaceName);
 	}
+
 	@Then("le button partager est activé")
-	public void checkShareButton(){
+	public void checkShareButton() {
 		assertThat(articleSteps.isShareButtonEnabled()).as("Share button should be enabled but it is not").isTrue();
 	}
 
 	@Then("je partage l'article avec l'espace '(.*)' et la description'(.*)'")
-	public void shareNew(String spaceName,String description){
-		articleSteps.shareNews(spaceName,description);
+	public void shareNew(String spaceName, String description) {
+		articleSteps.shareNews(spaceName, description);
+	}
+
+	@Then("^l'article est affiché avec le bon contenu$")
+	public void checkContentWithText() {
+		String activity = Serenity.sessionVariableCalled("activity");
+		assertThat(articleSteps.isContentWithTextVisible(activity))
+				.as("Content article should be displayed with content").isTrue();
+	}
+	@Then("^le fichier attaché est affiché$")
+	public void checkAttachedFile() {
+		String fileName = Serenity.sessionVariableCalled("fileName");
+		assertThat(articleSteps.isAttachedFileDisplayed(fileName))
+				.as("Attached file should be displayed in article").isTrue();
 	}
 }

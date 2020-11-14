@@ -1,0 +1,33 @@
+# language: fr
+Fonctionnalité: New composer général
+  En tant qu’ utilisateur
+  Je veux manipuler des activités via le new composer
+  Afin de les partager avec mes collaborateur
+
+  Scénario: CAP97-[US-General-04]:update posts - text update (space case)
+    Etant donné Je suis connecté avec l'utilisateur avec les identifiants
+      | login    | john   |
+      | password | gtngtn |
+    Et l'espace 'ShortMessageCAP97' est crée
+    Quand je clique sur poster dans l'espace
+    Et je saisie une activité 'activité CAP97'
+    Et je publie l'activité
+    Et je clique sur modifier l'activité
+    Et je saisie une activité 'activité CAP97 edited'
+    Et je publie l'activité
+    Alors l'activité 'activité CAP97 edited' est affiché dans l'activity stream
+    
+  Scénario: CAP109-[US-General-07]:update posts - text update with normal Link (space case)
+    Etant donné Je suis connecté avec l'utilisateur avec les identifiants
+      | login    | john   |
+      | password | gtngtn |
+    Et l'espace 'US-General-07' est crée
+    Quand je clique sur poster dans l'espace
+    Et je saisie une activité 'activité CAP109'
+    Et je saisie une activité 'https://www.exoplatform.com/'
+    Et je publie l'activité
+    Et je clique sur modifier l'activité
+    Et je saisie une activité 'modifier le lien'
+    Et je publie l'activité
+    Alors l'activité 'modifier le lien activité CAP109' est affiché dans l'activity stream
+    Et Le lien est affiché avec le preview

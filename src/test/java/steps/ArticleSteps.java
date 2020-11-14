@@ -3,6 +3,7 @@ package steps;
 import static steps.GenericSteps.switchToTabByIndex;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -90,6 +91,12 @@ public class ArticleSteps {
 	public List<String> checkArticleFields() {
 		switchToTabByIndex(1);
 		Map<String, String> expectedArticle = Serenity.sessionVariableCalled("expectedArticleValues");
+		if (expectedArticle == null) {
+			expectedArticle = new HashMap<>();
+			expectedArticle.put("Titre", "");
+			expectedArticle.put("Résumé", "");
+			expectedArticle.put("Contenu", "");
+		}
 		List<String> missingValues = new ArrayList<>();
 		for (String fieldsName : expectedArticle.keySet()) {
 			if (fieldsName.equals("Contenu") && (!articleEditorPage.isCkEditorVivible())) {
@@ -163,5 +170,20 @@ public class ArticleSteps {
 
 	public boolean isShareButtonEnabled() {
 		return articleEditorPage.isShareButtonEnabled();
+	}
+
+	public boolean isContentWithTextVisible(String textContent) {
+		switchToTabByIndex(1);
+		boolean isContentWithTextVisible = articleEditorPage.isContentWithTextVisible(textContent);
+		switchToTabByIndex(0);
+		return isContentWithTextVisible;
+
+	}
+
+	public boolean isAttachedFileDisplayed(String file) {
+		switchToTabByIndex(1);
+		boolean isAttachedFileDisplayed=articleEditorPage.isAttachedFileDisplayed(file);
+		switchToTabByIndex(0);
+		return isAttachedFileDisplayed;
 	}
 }

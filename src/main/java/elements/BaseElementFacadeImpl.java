@@ -77,12 +77,6 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 				(int) DefaultTimeouts.DEFAULT_WAIT_FOR_TIMEOUT.toMillis());
 	}
 
-	public <T extends PaginationElementFacade> T findPaginationElementByXpath(String xpath) {
-		checkXpathFormat(xpath);
-		WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
-		return PaginationElementFacadeImpl.wrapWebElementFacade(driver, nestedElement, timeoutInMilliseconds(),
-				defaultWait());
-	}
 
 	public <T extends BaseElementFacade> T findByXpath(String xpath) {
 		checkXpathFormat(xpath);
@@ -91,19 +85,6 @@ public class BaseElementFacadeImpl extends WebElementFacadeImpl implements BaseE
 				defaultWait());
 	}
 
-	public <T extends GridElementFacade> T findGridElementByXpath(String xpath) {
-		checkXpathFormat(xpath);
-		WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
-		return GridElementFacadeImpl.wrapWebElementFacade(driver, nestedElement, timeoutInMilliseconds(),
-				defaultWait());
-	}
-
-	public <T extends TableElementFacade> T findTableElementByXpath(String xpath) {
-		checkXpathFormat(xpath);
-		WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
-		return TableElementFacadeImpl.wrapWebElementFacadeInTableElement(driver, nestedElement, timeoutInMilliseconds(),
-				defaultWait());
-	}
 
 	public <T extends TextElementFacade> T findTextElementByXpath(String xpath) {
 		checkXpathFormat(xpath);

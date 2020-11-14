@@ -43,14 +43,6 @@ public interface BaseElementFacade extends WebElementFacade {
 
 	/**
 	 * Method to find an element inside an element using the xpath and to wrapp it
-	 * in a TableElementFacade instance
-	 * 
-	 * @return TableElementFacade instance of the found element
-	 */
-	public <T extends TableElementFacade> T findTableElementByXpath(String xpath);
-
-	/**
-	 * Method to find an element inside an element using the xpath and to wrapp it
 	 * in a ButtonElementFacade instance
 	 * 
 	 * @return ButtonElementFacade instance of the found element
@@ -65,21 +57,7 @@ public interface BaseElementFacade extends WebElementFacade {
 	 */
 	public <T extends TextElementFacade> T findTextElementByXpath(String xpath);
 
-	/**
-	 * Method to find an element inside an element using the xpath and to wrapp it
-	 * in a GridElementFacade instance
-	 * 
-	 * @return GridElementFacade instance of the found element
-	 */
-	public <T extends GridElementFacade> T findGridElementByXpath(String xpath);
 
-	/**
-	 * Method to find an element inside an element using the xpath and to wrapp it
-	 * in a PaginationElementFacade instance
-	 * 
-	 * @return PaginationElementFacade instance of the found element
-	 */
-	public <T extends PaginationElementFacade> T findPaginationElementByXpath(String xpath);
 
 	/**
 	 * This method will scroll the element to the right

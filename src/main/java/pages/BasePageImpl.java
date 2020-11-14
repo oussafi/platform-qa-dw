@@ -105,15 +105,4 @@ public class BasePageImpl extends PageObject implements BasePage {
                 getImplicitWaitTimeout().toMillis(), getWaitForTimeout().toMillis());
     }
 
-    public <T extends GridElementFacade> T findGridElementByXpath(String xpath) {
-        if (!Selectors.isXPath(xpath)) {
-            exceptionLauncher.throwSerenityExeption(new Exception(),
-                    String.format("The format for the xpath [%s] is not correct.", xpath));
-        }
-        WebElementFacade nestedElement = getWebElementFacadeByXpath(xpath);
-
-        return GridElementFacadeImpl.wrapWebElementFacadeInGridElement(getDriver(), nestedElement,
-                getImplicitWaitTimeout().toMillis(), getWaitForTimeout().toMillis());
-    }
-
 }
