@@ -75,6 +75,10 @@ public class SpaceHomePage extends GenericPage {
 		return findByXpath(String.format("//div[@class='newsTitle']//a[contains(text(),'%s')]", title));
 	}
 
+	private BaseElementFacade getSpaceName(String spaceName) {
+		return findByXpath(String.format("//div[@class='newsSpace']//a[contains(text(),'%s')]", spaceName));
+	}
+
 	private BaseElementFacade getReadMoreArticle(String title) {
 		return findByXpath(String.format("//a[contains(text(),'%s')]//following::div[@class='readMore']//a", title));
 	}
@@ -235,4 +239,7 @@ public class SpaceHomePage extends GenericPage {
 		geEditActivityIcon(activity).clickOnElement();
 	}
 
+	public void clickSpace(String spaceName) {
+		getSpaceName(spaceName).clickOnElement();
+	}
 }

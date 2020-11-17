@@ -123,4 +123,8 @@ public class SpaceHomeStepDefinition {
 		spaceHomeSteps.openEditActivityMenu(oldActiviyy);
 	}
 
+	@When("^je clique sur le nom de l'espace '(.*)' dans activity loader$")
+	public void clickSpace(String spanceName) {
+		spaceHomeSteps.clickSpace(spanceName);
+	}
 }

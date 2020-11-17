@@ -1,5 +1,10 @@
 package pages.page.factory.space;
 
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 import elements.BaseElementFacade;
@@ -30,8 +35,16 @@ public class ManageSpacesPage extends GenericPage {
 	@FindBy(xpath = "//div[contains(@class,'inputSpacesFilter')]//input")
 	private TextBoxElementFacade searchSpaceInput;
 
+	@FindBy(xpath = "(//div[@name='inviteMembers']//input)[1]")
+	private TextBoxElementFacade inviteUserInput;
+
 	private BaseElementFacade getSpaceNameInListOfSpace(String spaceName) {
 		return findByXpath(String.format("//div[@id='spacesListBody']//a[contains(text(),'%s')]", spaceName));
+	}
+
+	private BaseElementFacade getSelectUserInDropDown(String userName) {
+		return findByXpath(String.format(
+				"//div[contains(@class,'identitySuggestionMenuItemText') and contains(text(),'%s')]", userName));
 	}
 
 	public void openSpaceFormDrawer() {
@@ -39,7 +52,10 @@ public class ManageSpacesPage extends GenericPage {
 	}
 
 	public void setSpaceName(String spaceName) {
-		spaceNameInput.setTextValue(spaceName);
+		StringSelection stringSelection = new StringSelection(spaceName);
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		clipboard.setContents(stringSelection, null);
+		spaceNameInput.sendKeys(Keys.CONTROL + "v");
 	}
 
 	public void clickFirstProcessButton() {
@@ -52,6 +68,7 @@ public class ManageSpacesPage extends GenericPage {
 
 	public void clickAddSpaceButton() {
 		addSpaceButton.clickOnElement();
+		addSpaceButton.waitUntilNotVisible();
 	}
 
 	public void insertSpaceNameInSearchField(String spaceName) {
@@ -60,5 +77,10 @@ public class ManageSpacesPage extends GenericPage {
 
 	public void goToSpecificSpace(String spaceName) {
 		getSpaceNameInListOfSpace(spaceName).clickOnElement();
+	}
+
+	public void inviteUserToSpace(String user) {
+		inviteUserInput.setTextValue(user);
+		getSelectUserInDropDown(user).clickOnElement();
 	}
 }

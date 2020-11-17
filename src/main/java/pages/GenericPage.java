@@ -42,4 +42,7 @@ public class GenericPage extends BasePageImpl {
 	public boolean isSuccessMessageDisplayed() {
 		return successMessagePopup.isVisibleAfterWaiting();
 	}
+	public void clickConfirm(){
+		getButton("Confirmer").clickOnElement();
+	}
 }

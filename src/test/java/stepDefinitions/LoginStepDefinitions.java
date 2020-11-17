@@ -17,4 +17,10 @@ public class LoginStepDefinitions {
         loginSteps.authenticate(credentials);
         assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
     }
+
+    @Given("^Je change l'utilisateur$")
+    public void logOutLogin(Map<String, String> credentials) {
+        loginSteps.logOutLogin(credentials);
+        assertThat(loginSteps.isHomePageDisplayed()).as("The home page should be loaded, but it did not !").isTrue();
+    }
 }

@@ -24,4 +24,9 @@ public class GenericStepDefinitions {
     public void checkButton(String button) {
         assertThat(genericSteps.isButtonDisplayed(button)).as(String.format("The button %s should be displayed but it is not",button)).isTrue();
     }
+
+    @When("^je confirme$")
+    public void clickConfirm() {
+        genericSteps.clickConfirm();
+    }
 }

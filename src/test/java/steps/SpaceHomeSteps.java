@@ -111,4 +111,7 @@ public class SpaceHomeSteps {
 	public void openEditActivityMenu(String activity){
 		spaceHomePage.openEditActivityMenu(activity);
 	}
+	public void clickSpace(String spaceName){
+		spaceHomePage.clickSpace(spaceName);
+	}
 }

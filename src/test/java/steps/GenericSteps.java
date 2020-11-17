@@ -20,4 +20,8 @@ private GenericPage genericPage;
     public boolean isSuccessMessageDisplayed(){
         return genericPage.isSuccessMessageDisplayed();
     }
+
+    public void clickConfirm(){
+        genericPage.clickConfirm();
+    }
 }

@@ -23,4 +23,10 @@ public class ManageSpaceStepDefinitions {
 		homeSteps.goToManageSpacesPage();
 		manageSpaceSteps.goToSpeceficSpace(spaceName);
 	}
+
+	@Given("^Je créé l'espace '(.*)' en invitant l'utilisateur '(.*)'$")
+	public void addNewSpaceWithUser(String spaceName,String user) {
+		homeSteps.goToManageSpacesPage();
+		manageSpaceSteps.addSpaceWithInviteUser(spaceName,user);
+	}
 }
