@@ -147,6 +147,7 @@ public class HomePage extends GenericPage {
 	}
 
 	public boolean isWidgetWithNumberVisible(String widget, String number) {
+		Serenity.getWebdriverManager().getCurrentDriver().navigate().refresh();
 		return getProfileWidgetContent(widget, number).isVisibleAfterWaiting();
 	}
 
