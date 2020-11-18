@@ -26,6 +26,9 @@ public class HomePage extends GenericPage {
 	@FindBy(xpath = "//a[@href='/portal/dw/home']")
 	private BaseElementFacade homePageLink;
 
+	@FindBy(xpath = "//i[contains(@class,'uiIconPeople')]")
+	private BaseElementFacade personnePageLink;
+
 	@FindBy(id = "appcenterLauncherButton")
 	private BaseElementFacade appCenterButton;
 
@@ -67,6 +70,11 @@ public class HomePage extends GenericPage {
 				"//aside[contains(@class,'spaceDrawer ')]//div[@role='list']//descendant::div[@role='listitem']");
 	}
 
+	private List<WebElementFacade> getListConnectionInDrawer() {
+		return findAll(
+				"//aside[contains(@class,'connectionsDrawer ')]//div[@role='list']//descendant::div[@role='listitem']");
+	}
+
 	private BaseElementFacade getBadgeWithNumber(String number) {
 		return findByXpath(
 				String.format("//div[contains(@class,'profileCard')]//button//span[contains(text(),'%s')]", number));
@@ -81,6 +89,18 @@ public class HomePage extends GenericPage {
 	private BaseElementFacade getAcceptIconSpaceFromDrawer(String spaceName) {
 		return findByXpath(String.format(
 				"//aside[contains(@class,'spaceDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
+				spaceName));
+	}
+
+	private BaseElementFacade getAcceptIconConnexionFromDrawer(String spaceName) {
+		return findByXpath(String.format(
+				"//aside[contains(@class,'connectionsDrawer ')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-checkbox-marked')]",
+				spaceName));
+	}
+
+	private BaseElementFacade getRejectIconConnexionFromDrawer(String spaceName) {
+		return findByXpath(String.format(
+				"//aside[contains(@class,'connectionsDrawer')]//descendant::div[contains(text(),'%s')]//following::i[contains(@class,'mdi-close-circle')]",
 				spaceName));
 	}
 
@@ -125,6 +145,11 @@ public class HomePage extends GenericPage {
 		homePageLink.clickOnElement();
 	}
 
+	public void goToPeoplePage() {
+		hamburgerNavigationMenuLink.clickOnElement();
+		personnePageLink.clickOnElement();
+	}
+
 	public boolean isNewsDisplayedInWidget() {
 		return newsInWidget.isVisibleAfterWaiting();
 	}
@@ -163,10 +188,25 @@ public class HomePage extends GenericPage {
 		int listOfSpaces = getListSpaceInDrawer().size();
 		return listOfSpaces == expectedNumber;
 	}
-	public void rejectSpaceInvitation(String spaceName){
+
+	public boolean isNumberOfConnectionsInDrawer(int expectedNumber) {
+		int listOfSpaces = getListConnectionInDrawer().size();
+		return listOfSpaces == expectedNumber;
+	}
+
+	public void rejectSpaceInvitation(String spaceName) {
 		getRejectIconSpaceFromDrawer(spaceName).clickOnElement();
 	}
-	public void acceptSpaceInvitation(String spaceName){
+
+	public void acceptSpaceInvitation(String spaceName) {
 		getAcceptIconSpaceFromDrawer(spaceName).clickOnElement();
+	}
+
+	public void acceptConnexionInvitation(String userName) {
+		getAcceptIconConnexionFromDrawer(userName).clickOnElement();
+	}
+
+	public void rejectConnexionInvitation(String userName) {
+		getRejectIconConnexionFromDrawer(userName).clickOnElement();
 	}
 }

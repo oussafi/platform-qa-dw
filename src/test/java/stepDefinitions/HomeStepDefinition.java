@@ -13,6 +13,7 @@ public class HomeStepDefinition {
 	@Steps
 	private HomeSteps homeSteps;
 
+	@Then("^Le button mes applications est affiché$")
 	@When("je navigue vers la page actualité")
 	public void goToNewsApp() {
 		homeSteps.goToNewsApp();
@@ -78,13 +79,35 @@ public class HomeStepDefinition {
 				.as(String.format("Le nombre d'espace dans le drawer n'est pas égale à %s", number)).isTrue();
 	}
 
+	@Then("^le drawer contient '(.*)' connexions est ouvert$")
+	public void checkConnexionDrawer(String number) {
+		assertThat(homeSteps.isNumberOfConnectionsInDrawer(number))
+				.as(String.format("Le nombre de connexions dans le drawer n'est pas égale à %s", number)).isTrue();
+	}
+
 	@When("j'accepte l'invitation des espaces suivant")
 	public void acceptSpaces(List<String> listOfSpace) {
 		homeSteps.acceptSpaceInvitation(listOfSpace);
 	}
 
+	@When("j'accepte l'invitation des connexions suivant")
+	public void acceptConnexion(List<String> listOfPeople) {
+		homeSteps.acceptConnexionInvitation(listOfPeople);
+	}
+
+	@When("^je rejecte l'invitation des connexions suivant$")
+	public void rejectConnexion(List<String> listOfPeople) {
+		homeSteps.rejectConnexionInvitation(listOfPeople);
+	}
+
 	@When("je rejecte l'invitation des espaces suivant")
 	public void rejectSpaces(List<String> listOfSpace) {
 		homeSteps.rejectSpaceInvitation(listOfSpace);
+	}
+
+	@Then("^le nombre des demandes de connexion est '(.*)'$")
+	public void checkConnexionBagde(String number) {
+		assertThat(homeSteps.isBadgeWithNumberVisible(number))
+				.as(String.format("La badge doit avoir le nombre %s", number)).isTrue();
 	}
 }

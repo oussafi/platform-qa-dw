@@ -3,7 +3,6 @@ Feature: Vérification des espaces
   Je veux vérifier les espaces dans la page d'acceuil
   Afin de valider la page
 
-
   Scenario: US 3.3.2_(01) [BACK] No Spaces requests to join
     Given Je suis connecté avec l'utilisateur avec les identifiants
       | login    | john   |
@@ -19,7 +18,6 @@ Feature: Vérification des espaces
       | login    | userus3321 |
       | password | 123456789  |
     Then Le nombre 'Espaces' est '0'
-
 
   Scenario: US 3.3.2_(02) [BACK] Spaces requests to join: See All
     Given Je suis connecté avec l'utilisateur avec les identifiants

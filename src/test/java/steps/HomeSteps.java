@@ -70,6 +70,10 @@ public class HomeSteps {
 		return homePage.isNumberOfSpacesInDrawer(Integer.valueOf(number));
 	}
 
+	public boolean isNumberOfConnectionsInDrawer(String number) {
+		return homePage.isNumberOfConnectionsInDrawer(Integer.valueOf(number));
+	}
+
 	public void rejectSpaceInvitation(List<String> listOfSpaces) {
 		for (String spaceName : listOfSpaces)
 			homePage.rejectSpaceInvitation(spaceName);
@@ -78,5 +82,15 @@ public class HomeSteps {
 	public void acceptSpaceInvitation(List<String> listOfSpaces) {
 		for (String spaceName : listOfSpaces)
 			homePage.acceptSpaceInvitation(spaceName);
+	}
+
+	public void acceptConnexionInvitation(List<String> listOfPeople){
+		for (String peopleName : listOfPeople)
+			homePage.acceptConnexionInvitation(peopleName);
+	}
+
+	public void rejectConnexionInvitation(List<String> listOfPeople){
+		for (String peopleName : listOfPeople)
+			homePage.rejectSpaceInvitation(peopleName);
 	}
 }
