@@ -13,7 +13,7 @@ Feature: Vérification des sliders
       | Statistique          |
       | Taches               |
       | Documents            |
-
+@execute
   Scenario: CAP02-US 3.1[FRONT]_(01):Add a Slider section in the new Homepage
     Given Je suis connecté avec l'utilisateur avec les identifiants
       | login    | john   |
